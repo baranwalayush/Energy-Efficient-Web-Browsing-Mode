@@ -4,14 +4,18 @@
     "version": "1.0",
     "description": "Optimize browsing to save energy by managing tabs, blocking media, and enabling dark mode.",
     "icons": {
-      "1": "icons/icon.png"
+      "16": "icons/icon16.png",
+      "19": "icons/icon19.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     },
     "permissions": [
       "tabs", "storage", "background", "activeTab", "scripting"
     ],
     "action": {
       "default_popup": "popup.html",
-      "default_icon": "icons/icon.png",
+      "default_icon": "icons/icon128.png",
       "default_title": "Energy Efficient Browsing"
     },
     "background": {
