@@ -16,7 +16,7 @@ body {
 .container {
     width: 300px;
     padding: 20px;
-    background-color: #161414;
+    background-color: #0a0e0f;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -29,7 +29,7 @@ header h1 {
 }
 
 header p {
-    color: #ddcaca;
+    color: white;
     font-size: 0.9em;
     margin-bottom: 20px;
 }
@@ -37,9 +37,9 @@ header p {
 .features .feature {
     padding: 15px;
     margin-bottom: 10px;
-    border: 1px solid #3c4044;
+    border: 1px solid #252525;
     border-radius: 8px;
-    background-color: #3c4044;
+    background-color: #252525;
 }
 
 .features .feature h2 {
@@ -50,7 +50,8 @@ header p {
 
 .features .feature p {
     font-size: 0.85em;
-    color: #ddcaca;
+    color: white;
+    margin-bottom: 8px;
 }
 
 /*
@@ -94,7 +95,7 @@ header p {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #7a7777;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -138,7 +139,7 @@ input:checked + .slider:before {
 footer {
     margin-top: 15px;
     font-size: 0.75em;
-    color: #ddcaca;
+    color: white;
 }
 
 footer a {
