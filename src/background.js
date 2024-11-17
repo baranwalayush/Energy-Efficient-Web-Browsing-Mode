@@ -45,7 +45,7 @@ function toggleMediaBlocking(enable) {
 
 // Feature 3: Dark Mode - Enable/Disable adaptive dark mode
 function toggleDarkMode(enable) {
-    chrome.tabs.query({}, (tabs) => {
+    chrome.tabs.query({ active : true}, (tabs) => {
         tabs.forEach(tab => {
             chrome.scripting.executeScript({
                 target : {tabId : tab.id},
