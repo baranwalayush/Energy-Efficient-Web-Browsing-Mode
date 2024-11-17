@@ -24,14 +24,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   });
 
 
+// Feature 1: Tab Management - Suspend inactive tabs
 function toggleTabManagement(enable) {
     if (enable) {
-        console.log("-");
+        // Activate tab suspension by monitoring inactive tabs
+        chrome.tabs.onActivated.addListener(checkAndSuspendTabs);
+        console.log("Inactive tabs will be suspended.");
+    } else {
+        // Remove listener when tab management is disabled
+        chrome.tabs.onActivated.removeListener(checkAndSuspendTabs);
+        console.log("Task completed");
     }
-    else {
-        console.log("-");
-    }
-}
+  }
+  
+  // Helper function to suspend tabs not in active use
+  function checkAndSuspendTabs() {
+    chrome.tabs.query({ active: false, currentWindow: true }, (tabs) => {
+        tabs.forEach(tab => {
+            // Suspend tab by reloading with minimal CPU usage
+            chrome.tabs.discard(tab.id, () => {
+                console.log(`Tab ${tab.id} suspended.`);
+            });
+        });
+    });
+  }
 
 
 function toggleMediaBlocking(enable) {
@@ -52,7 +68,7 @@ function toggleDarkMode(enable) {
                 function : enableDarkMode,
                 args : [enable]
             })
-            .then(() => console.log("task completed"));
+            .then(() => console.log("Task completed"));
         });
     })
 }
