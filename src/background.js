@@ -43,7 +43,7 @@ function toggleMediaBlocking(enable) {
     }
 }
 
-
+// Feature 3: Dark Mode - Enable/Disable adaptive dark mode
 function toggleDarkMode(enable) {
     chrome.tabs.query({}, (tabs) => {
         tabs.forEach(tab => {
@@ -68,6 +68,8 @@ function toggleDarkMode(enable) {
 //     return false;
 //   }
 
+
+// Helper function for feature 3
 function enableDarkMode(enabled) {
     if (enabled) {
         document.body.style.filter = "invert(1) hue-rotate(180deg)";

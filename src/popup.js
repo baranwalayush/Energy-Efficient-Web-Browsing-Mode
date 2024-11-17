@@ -45,7 +45,7 @@ dataSaverButton.addEventListener("click", () => {
 
 // Event listener to view the dashboard
 dashboardButton.addEventListener("click", () => {
-    chrome.tabs.create({ url: "dashboard.html" });
+    chrome.tabs.create({ url: "layouts/dashboard.html" });
 });
 
 // Function to send a message to background.js to toggle features
