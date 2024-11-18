@@ -97,12 +97,24 @@ function enableDarkMode(enabled) {
 
 
 function toggleBatterySaver(enable) {
-    if (enable) {
-        console.log("-");
-    }
-    else {
-        console.log("-");
-    }
+    // navigator.getBattery().then(battery => {
+    //     let value = battery.level;
+    //     console.log(`Battery Level: ${value}`);
+    //     if(enable) {
+    //         if(value < 0.3) {
+    //             // Reduces energy consumption when battery is low
+    //             chrome.power.requestKeepAwake("system");
+    //             console.log("Battery Saver Enabled: Optimized settings for low battery.");
+    //         }
+    //         else {
+    //             console.log("Battery Level already optimal");
+    //         }
+    //     }
+    //     else {
+    //         chrome.power.releaseKeepAwake();
+    //         console.log("Battery Saver Disabled");
+    //     }
+    // });
 }
 
 

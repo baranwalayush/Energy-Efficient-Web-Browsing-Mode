@@ -11,7 +11,7 @@
       "128": "assets/icons/icon128.png"
     },
     "permissions": [
-      "tabs", "storage", "background", "activeTab", "scripting"
+      "tabs", "storage", "background", "activeTab", "scripting", "power"
     ],
     "action": {
       "default_popup": "popup.html",

@@ -34,7 +34,10 @@ darkModeButton.addEventListener("click", () => {
 // Event listener to toggle Battery Saver feature
 batterySaverButton.addEventListener("click", () => {
     batterySaverEnabled = !batterySaverEnabled;
-    toggleFeature("batterySaver", batterySaverEnabled);
+
+    toggleBatterySaver(batterySaverEnabled);
+
+    //toggleFeature("batterySaver", batterySaverEnabled);
 });
 
 // Event listener to toggle Data Saver feature
@@ -51,10 +54,10 @@ dashboardButton.addEventListener("click", () => {
 // Function to send a message to background.js to toggle features
 function toggleFeature(feature, enabled) {
 
-    if(enabled){
+    if(enabled) {
         console.log(`${feature} Enabled`);
     }
-    else{
+    else {
         console.log(`${feature} Disabled`);
     }
     
@@ -63,6 +66,29 @@ function toggleFeature(feature, enabled) {
         feature: feature,
         enabled: enabled
     });
+}
+
+function toggleBatterySaver(enabled) {
+
+    navigator.getBattery().then(battery => {
+        let value = battery.level;
+        console.log(`Battery Level: ${value}`);
+        if(enabled) {
+            if(value < 0.3) {
+                // Reduces energy consumption when battery is low
+                chrome.power.requestKeepAwake("system");
+                console.log("Battery Saver Enabled: Optimized settings for low battery.");
+            }
+            else {
+                console.log("Battery Level already optimal");
+            }
+        }
+        else {
+            chrome.power.releaseKeepAwake();
+            console.log("Battery Saver Disabled");
+        }
+    });
+    
 }
 
 // tabManagementButton.addEventListener("click", () => {
