@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body{
+    background-color :black;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-3 mb-5"><h1>It's Time for Energy Efficient Mode</h1></div>
+    
+    <div class="container d-flex justify-content-around mb-3 ">
+        <div class="card shadow-lg" style="width: 18rem; border-radius: 0.75rem;background-color: #100c08;color:white;">
+            <img class="card-img-top" style="border-radius: 0.75rem;" src="https://th.bing.com/th/id/OIG1.fvpWssm60oOK0YYNzDEJ?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Reduce Carbon Emission</h5>
+              <p class="card-text"> Reduces carbon emissions by optimizing your browser's energy and resource usage. Lowers CPU and memory consumption, reducing the power needed to keep your device running efficiently.</p>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;border-radius: 0.75rem;background-color: #100c08;color:white;">
+            <img class="card-img-top" style="border-radius: 0.75rem;" src="https://th.bing.com/th/id/OIG2.WKxP1BWW.9X8GZxtFRVA?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Dark Mode</h5>
+              <p class="card-text">Applies a darker color scheme to webpages. On devices with OLED or AMOLED screens, it saves energy by turning off pixels for dark areas.</p>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;border-radius: 0.75rem;background-color: #100c08;color:white;">
+            <img class="card-img-top" style='border-radius: 0.75rem;' src="https://th.bing.com/th/id/OIG2.__4nnR.Eh7pGGlDEz7Qh?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Ad-Block</h5>
+              <p class="card-text">Blocks intrusive or resource-heavy advertisements on websites. By preventing ads from loading, it reduces data usage, improves page loading speeds, and minimizes CPU and memory consumption.</p>
+            </div>
+          </div>
+    </div>
+
+    <div class="container mb-3 pb-3">
+      <h1  style="text-align: center; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">ABOUT US</h1>
+      <div class=" d-flex  justify-content-around ">
+        
+        <div class="col-4 mt-5" >
+          <h3>
+The internet consumes around 416 terawatts of electricity per year, more than the UK's annual consumption (IEA) because
+users lack tools to manage energy usage in daily browsing, despite a growing demand for sustainable tech. <br> <br>
+The Energy Efficient Web Browsing Mode is a Chrome extension designed to optimize browserbehaviour and minimize energy consumption during web browsing.
+Battery Mode Detection Auto-Blocking Ads Real-Time Alerts
+This extension intelligently manages browser settings and operations based on user activity andthe content being viewed, providing an eco-friendly browsing experience.
+          </h3>
+</div>
+<canvas class="col-1" id="rqx" height="auto" width="auto"></canvas>
+</div>
+<div class="mt-3 mb-5"><h1  style="text-align: center; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">OUR FEATURES</h1></div>
+<h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Smart Tab Management</h2>
+<h5>
+    Automatically suspends inactive tabs to save memory and CPU.It boosts your browser's speed and responsiveness, even with multiple tabs open. Tabs are reactivated instantly when needed, ensuring a seamless experience. Enjoy efficient multitasking without slowing down your system, and keeping you eco friendly.
+</h5>
+<h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Auto Block Media</h2>
+<h5> 
+   Reduces data usage and power consumption by blocking resource intensive media. Enjoy optimized storage and power usage and improved website performance effortlessly. Say goodbye to large media slowing you down!
+</h5>
+<h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Dark Mode</h2>
+<h5> 
+   Applies dark mode and dims nonessential elements for energy savings . It intelligently dims nonessential elements, focusing attention on the content that matters. With optimized power usage on OLED screens, it extends battery life during browsing. Enjoy a sleek, energy-efficient browsing experience anytime!
+</h5>
+<h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Battery Saver</h2>
+<h5> 
+   Detects when the device is on battery power and activates power-saving settings, like reducing brightness and limiting resource-heavy tasks. Enjoy longer browsing sessions with optimized energy use tailored to your battery level. Stay energy efficient without worrying about sudden shutdowns!
+</h5>
+<h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Data Saver</h2>
+<h5>
+  Seamlessly compresses images and videos during uploads. It reduces file sizes without compromising quality, ensuring faster sharing and loading times. Enjoy optimized storage usage and improved website performance effortlessly. Say goodbye to large media slowing you down!
+</h5>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script>
+      const xValues=["Hardware Production","Data Storage and Transfer", "Device Use"];
+      const yValues=[0.19,0.29,0.52];     
+      var barColors=["#06C","#C9190B","#EF9234","#4CB140","#009596","#5752D1","#F4C145","#EC7A08","#7D1007","#B8BBBE"].slice(0,xValues.length);
+       rqx=document.querySelector('#rqx'); 
+      new Chart(rqx, {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      text:'Carbon Emission Sources in Digital Technology',
+      display: true,
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  }
+  });
+    </script>
+    
+</body>
+</html>
