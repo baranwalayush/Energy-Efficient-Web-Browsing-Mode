@@ -97,34 +97,60 @@ function enableDarkMode(enabled) {
 
 
 function toggleBatterySaver(enable) {
-    // navigator.getBattery().then(battery => {
-    //     let value = battery.level;
-    //     console.log(`Battery Level: ${value}`);
-    //     if(enable) {
-    //         if(value < 0.3) {
-    //             // Reduces energy consumption when battery is low
-    //             chrome.power.requestKeepAwake("system");
-    //             console.log("Battery Saver Enabled: Optimized settings for low battery.");
-    //         }
-    //         else {
-    //             console.log("Battery Level already optimal");
-    //         }
-    //     }
-    //     else {
-    //         chrome.power.releaseKeepAwake();
-    //         console.log("Battery Saver Disabled");
-    //     }
-    // });
+    navigator.getBattery().then(battery => {
+        let value = battery.level;
+        console.log(`Battery Level: ${value}`);
+        if(enable) {
+            if(value < 0.3) {
+                // Reduces energy consumption when battery is low
+                chrome.power.requestKeepAwake("system");
+                console.log("Battery Saver Enabled: Optimized settings for low battery.");
+            }
+            else {
+                console.log("Battery Level already optimal");
+            }
+        }
+        else {
+            chrome.power.releaseKeepAwake();
+            console.log("Battery Saver Disabled");
+        }
+    });
 }
 
 
 function toggleDataSaver(enable) {
     if (enable) {
-        console.log("-");
-    }
+        // Apply image compression to all open tabs
+        chrome.tabs.query({}, (tabs) => {
+            tabs.forEach(tab => {
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    function: compressImages
+                });
+            });
+        });
+
+        // Listen for newly loaded tabs and apply image compression
+        chrome.webNavigation.onCompleted.addListener((details) => {
+            chrome.scripting.executeScript({
+                target: { tabId: details.tabId },
+                function: compressImages
+            });
+        });
+        console.log("Data Saver Enabled: Images will be compressed on webpages.");
+    } 
     else {
-        console.log("-");
+        // Stop listening for new tabs and remove image compression
+        chrome.webNavigation.onCompleted.removeListener();
+        console.log("Data Saver Disabled.");
     }
+}
+
+function compressImages() {
+    
+    // Select all image elements on the page and compress their size
+
+    
 }
 
 
