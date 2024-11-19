@@ -120,37 +120,11 @@ function toggleBatterySaver(enable) {
 
 function toggleDataSaver(enable) {
     if (enable) {
-        // Apply image compression to all open tabs
-        chrome.tabs.query({}, (tabs) => {
-            tabs.forEach(tab => {
-                chrome.scripting.executeScript({
-                    target: { tabId: tab.id },
-                    function: compressImages
-                });
-            });
-        });
-
-        // Listen for newly loaded tabs and apply image compression
-        chrome.webNavigation.onCompleted.addListener((details) => {
-            chrome.scripting.executeScript({
-                target: { tabId: details.tabId },
-                function: compressImages
-            });
-        });
-        console.log("Data Saver Enabled: Images will be compressed on webpages.");
-    } 
-    else {
-        // Stop listening for new tabs and remove image compression
-        chrome.webNavigation.onCompleted.removeListener();
-        console.log("Data Saver Disabled.");
+        console.log("-");
     }
-}
-
-function compressImages() {
-    
-    // Select all image elements on the page and compress their size
-
-    
+    else {
+        console.log("-");
+    }
 }
 
 
