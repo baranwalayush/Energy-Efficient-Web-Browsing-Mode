@@ -132,18 +132,19 @@ function toggleDataSaver(enable) {
         });
 
         // Listen for newly loaded tabs and apply image compression
-        chrome.webNavigation.onCompleted.addListener((details) => {
-            chrome.scripting.executeScript({
-                target: { tabId: details.tabId },
-                function: compressImages
-            });
-        });
-        console.log("Data Saver Enabled: Images will be compressed on webpages.");
+        // chrome.webNavigation.onCompleted.addListener((details) => {
+        //     chrome.scripting.executeScript({
+        //         target: { tabId: details.tabId },
+        //         function: compressImages
+        //     });
+        // });
+
+        //console.log("Data Saver Enabled: Images will be compressed on webpage.");
     } 
     else {
         // Stop listening for new tabs and remove image compression
         chrome.webNavigation.onCompleted.removeListener();
-        console.log("Data Saver Disabled.");
+        //console.log("Data Saver Disabled.");
     }
 }
 
@@ -172,7 +173,7 @@ function compressImages() {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
             // Compress the image by converting it to a JPEG with reduced quality
-            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.5); // 50% quality
+            const compressedDataUrl = canvas.toDataURL("image/png", 0.5); // 50% quality
 
             // Replace the image's src with the compressed version
             img.src = compressedDataUrl;
