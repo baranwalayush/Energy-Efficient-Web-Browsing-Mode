@@ -120,11 +120,69 @@ function toggleBatterySaver(enable) {
 
 function toggleDataSaver(enable) {
     if (enable) {
-        console.log("-");
-    }
+        // Apply image compression to current active tab
+        chrome.tabs.query({active: true}, (tabs) => {
+            tabs.forEach(tab => {
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    function: compressImages
+                })
+                .then(() => {console.log("Task Completed")});
+            });
+        });
+
+        // Listen for newly loaded tabs and apply image compression
+        chrome.webNavigation.onCompleted.addListener((details) => {
+            chrome.scripting.executeScript({
+                target: { tabId: details.tabId },
+                function: compressImages
+            });
+        });
+        console.log("Data Saver Enabled: Images will be compressed on webpages.");
+    } 
     else {
-        console.log("-");
+        // Stop listening for new tabs and remove image compression
+        chrome.webNavigation.onCompleted.removeListener();
+        console.log("Data Saver Disabled.");
     }
+}
+
+// This function is only applicable to images that are open source.
+// For non-opensource images, it will give  "Tainted canvases may not be exported" error.
+function compressImages() {
+
+    const images = document.getElementsByTagName("img");
+    var img_arr = [];
+
+    for(var i=0; i<images.length; i++){
+        img_arr.push(images[i]);
+    }
+
+    img_arr.forEach((img) => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Ensure the image has loaded before processing
+        img.onload = () => {
+            // Set canvas dimensions to match the image
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+
+            // Draw the image onto the canvas
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Compress the image by converting it to a JPEG with reduced quality
+            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.5); // 50% quality
+
+            // Replace the image's src with the compressed version
+            img.src = compressedDataUrl;
+        };
+
+        // For images already loaded, trigger compression immediately
+        if (img.complete) {
+            img.onload();
+        }
+    })
 }
 
 
