@@ -141,8 +141,16 @@ function toggleDataSaver(enable) {
         
     } 
     else {
-        // Stop listening for new tabs and remove image compression
-        chrome.webNavigation.onCompleted.removeListener();
+        // Remove image compression
+        chrome.tabs.query({active: true}, (tabs) => {
+            tabs.forEach(tab => {
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    function: restoreImages
+                })
+                .then(() => {console.log("Task Completed")});
+            });
+        });
         //console.log("Data Saver Disabled.");
     }
 }
@@ -152,7 +160,7 @@ function toggleDataSaver(enable) {
 function compressImages() {
 
     const images = document.getElementsByTagName("img");
-    var img_arr = [];
+    const img_arr = [];
 
     for(var i=0; i<images.length; i++){
         img_arr.push(images[i]);
@@ -162,35 +170,47 @@ function compressImages() {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        // Ensure the image has loaded before processing
-        // img.onload = () => {
+        // Skip already compressed images
+        if (!img.hasAttribute("data-original-src")) {
+            img.setAttribute("data-original-src", img.src); // Save original source
+        }
+        
+        try {
+            // Set canvas dimensions to match the image
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
 
-            try {
-                // Set canvas dimensions to match the image
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
+            // Draw the image onto the canvas
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                // Draw the image onto the canvas
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            // Compress the image by converting it to a JPEG with reduced quality
+            const compressedDataUrl = canvas.toDataURL("image/png", 0.5); // 50% quality
 
-                // Compress the image by converting it to a JPEG with reduced quality
-                const compressedDataUrl = canvas.toDataURL("image/png", 0.5); // 50% quality
+            // Replace the image's src with the compressed version
+            img.src = compressedDataUrl;
+            console.log("Image Compressed");
+        }
+        catch(e) {
+            img.removeAttribute("data-original-src");
+            console.error("Failed to process image due to cross-origin restrictions.");
+        }
 
-                // Replace the image's src with the compressed version
-                img.src = compressedDataUrl;
-                console.log("Compresses Image!");
-            }
-            catch(e) {
-                console.error("Failed to process image due to cross-origin restrictions.");
-            }
-        // };
-
-        // For images already loaded, trigger compression immediately
-        // if (img.complete) {
-        //     img.onload();
-        // }
     })
 }
+
+function restoreImages() {
+
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) => {
+        if (img.hasAttribute("data-original-src")) {
+            img.src = img.getAttribute("data-original-src"); // Restore original source
+            img.removeAttribute("data-original-src"); // Clean up
+            console.log("Image Restored");
+        }
+    });
+}
+
 
 
 
