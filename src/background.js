@@ -138,8 +138,7 @@ function toggleDataSaver(enable) {
         //         function: compressImages
         //     });
         // });
-
-        //console.log("Data Saver Enabled: Images will be compressed on webpage.");
+        
     } 
     else {
         // Stop listening for new tabs and remove image compression
@@ -164,25 +163,32 @@ function compressImages() {
         const ctx = canvas.getContext("2d");
 
         // Ensure the image has loaded before processing
-        img.onload = () => {
-            // Set canvas dimensions to match the image
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
+        // img.onload = () => {
 
-            // Draw the image onto the canvas
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            try {
+                // Set canvas dimensions to match the image
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
 
-            // Compress the image by converting it to a JPEG with reduced quality
-            const compressedDataUrl = canvas.toDataURL("image/png", 0.5); // 50% quality
+                // Draw the image onto the canvas
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-            // Replace the image's src with the compressed version
-            img.src = compressedDataUrl;
-        };
+                // Compress the image by converting it to a JPEG with reduced quality
+                const compressedDataUrl = canvas.toDataURL("image/png", 0.5); // 50% quality
+
+                // Replace the image's src with the compressed version
+                img.src = compressedDataUrl;
+                console.log("Compresses Image!");
+            }
+            catch(e) {
+                console.error("Failed to process image due to cross-origin restrictions.");
+            }
+        // };
 
         // For images already loaded, trigger compression immediately
-        if (img.complete) {
-            img.onload();
-        }
+        // if (img.complete) {
+        //     img.onload();
+        // }
     })
 }
 
